@@ -1,37 +1,22 @@
-var printArrayFromIndex = function(index,arr){
-    var out = '';
-    var len =  arr.length;
-     for(var i=0; i<len; i++){
-        out+= arr[index] + ' ';
-        index++;
-        if(index >=len){
-            index=0;
-        }
-     }
-     console.log(out);
-}
-
-var iterateArray = function(arr){
+var printPermutations = function(arr){
     var len = arr.length;
-    console.log(arr, 'in start')
-    for(var j=0;j<len;j++){
-        var tmp = arr[j];
-        if(j!==0){
-            arr[j] = arr[j-1];
-            arr[j-1]=tmp;
-        }    
-        for(var i=0; i<len; i++){
-            printArrayFromIndex(i, arr);
-        }
+    var curMember = arr[len-1];
+    //console.log(len, curMember);
+    if(len === 1){
+        return [arr];
+    }else{
         
-        if(j!==0){
-            arr[j-1] = arr[j];
-            arr[j]=tmp;
-        }  
-    
+        var out=[];
+        for(var i=0; i<len; i++){
+            var lenMinusOnePermutations = printPermutations(arr.slice(0, len-1));
+            for(var j=0; j<lenMinusOnePermutations.length;j++){
+                lenMinusOnePermutations[j].splice(i,0,curMember)
+                out.push(lenMinusOnePermutations[j]);
+            }            
+        }
+        return out;
     }
-    console.log(arr, 'in end')
+    
 }
 
-
-iterateArray([1,2,3,4,5,6,7,8])
+printPermutations(['a','b','c','d'])
