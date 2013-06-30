@@ -10,28 +10,26 @@
 
     //[1,2], [2,1], [1], [2]
 
-    var recursiveFunction = function (arr) {
+    var insertionSort = function (arr) {
         var len = arr.length;
-        var curMember = arr[len - 1];
-        if (len < 2) {
-            return [arr];
-        } else {
-            var allOut = []
-            var levelOut = recursiveFunction(arr.slice(0, len - 1));
-            for(var i=0; i<len;i++){
-                for (var j = 0; j < levelOut.length; j++) {
-                    var copy = levelOut[j].slice(0);
-                    copy.splice(i,0,curMember);
-                    allOut.push(copy);
+        for (var i = 1; i < arr.length; i++) {
+            var j=i;
+            var curMember = arr[i];
+            while(j>0){
+                if(arr[j-1]>arr[j]){
+                    var tmp = arr[j-1]
+                    arr[j-1] = arr[j];
+                    arr[j] = tmp;
+                    console.log('switch');
                 }
+                j--;
             }
-            return allOut;
         }
+        return arr;
     }
 
-
-    console.log(recursiveFunction([1,2,3,4]));
-    console.log(recursiveFunction([1,2,3,4]).length);
+    console.log(insertionSort([4,3,3,2,1,5,9,8,6,7]))
+    console.log(insertionSort([1,2,3,3,4,7,6,5,8,9]))
 
 
 </script>
